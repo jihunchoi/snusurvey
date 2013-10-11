@@ -44,13 +44,17 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    devise (3.0.3)
+    devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     haml (4.0.3)
       tilt
     haml-rails (0.4)
@@ -134,7 +138,8 @@ PLATFORMS
 DEPENDENCIES
   anjlab-bootstrap-rails!
   coffee-rails (~> 4.0.0)
-  devise
+  devise (~> 3.1.0)
+  figaro
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
