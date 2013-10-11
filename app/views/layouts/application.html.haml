@@ -1,11 +1,19 @@
 !!!
 %html
   %head
-    %title Snusurvey
+    %title SNU SURVEY
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    %p.notice= notice
-    %p.alert= alert
+    - if notice
+      .alert.alert-info.alert-dismissable
+        %button{type: "button", class: "close", data: {dismiss: "alert"}, aria: {hidden: "true"}}
+          &times;
+        = notice
+    - if alert
+      .alert.alert-danger.alert-dismissable
+        %button{type: "button", class: "close", data: {dismiss: "alert"}, aria: {hidden: "true"}}
+          &times;
+        = alert
     = yield
