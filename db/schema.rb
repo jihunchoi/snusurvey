@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131011064932) do
+ActiveRecord::Schema.define(version: 20131011125159) do
 
   create_table "choices", force: true do |t|
     t.string   "label"
@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 20131011064932) do
     t.string   "email_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "confirmed"
+    t.datetime "confirmed_at"
   end
 
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
