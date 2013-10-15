@@ -49,11 +49,8 @@ ready = ->
         method: 'post'
         url: url
         data: data
-        success: ->
-          console.log "success"
         error: ->
-          console.log "error"
-
+          alert "오류가 발생했습니다. 새로고침 후 다시 시도해 주세요"
 
   $("#edit-questions").disableSelection()
 
