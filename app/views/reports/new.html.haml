@@ -3,23 +3,28 @@
 
 %hr
 
-%ol
+%ol#report-questions{data: {survey_id: @survey.id}}
   - @questions.each do |question|
     %li{data: {question_id: question.id}}
       %strong= question.label
-      .entries
+      .entries{data: {question_type: question.type}}
         - if question.type == 0
           / Radio
           - question.choices.each do |choice|
-            %input{type: "radio"}
-            = choice.label
+            %label
+              %input{type: "radio", value: choice.id, name: "question[#{question.id}]"}
+              = choice.label
         - elsif question.type == 1
           / Checkbox
           - question.choices.each do |choice|
-            %input{type: "checkbox"}
-            = choice.label
+            %label
+              %input{type: "checkbox", value: choice.id, name: "question[#{question.id}]"}
+              = choice.label
         - else
           / Subjective
           %input{type: "text"}
-          
 %hr
+= form_tag '/reports' do
+  = hidden_field_tag 'jsonString'
+  = hidden_field_tag 'survey_id'
+  = submit_tag '제출', id: "report-submit"

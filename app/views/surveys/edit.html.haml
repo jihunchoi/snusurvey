@@ -39,7 +39,7 @@
 #radio.question
   %h4 단일 선택 문항
   = form_for @question do |f|
-    = hidden_field_tag "survey_id", @survey.id
+    = f.hidden_field :survey_id
     = f.hidden_field :type, value: 0
     .field
       = f.label :label

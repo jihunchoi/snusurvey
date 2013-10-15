@@ -1,5 +1,5 @@
 Snusurvey::Application.routes.draw do
-  get "reports/new"
+  resources :reports, only: :create
   resources :surveys
   resources :questions, only: [:create, :destroy, :update]
   get ':survey_id' => 'reports#new'
