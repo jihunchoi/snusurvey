@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.tmpl.min
 //= require jquery.ui.all
+//= require jquery.ui.touch-punch.min
 //= require turbolinks
 //= require twitter/bootstrap
 //= require_tree .
