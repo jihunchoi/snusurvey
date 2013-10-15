@@ -4,7 +4,7 @@ class SurveysController < ApplicationController
   # GET /surveys
   # GET /surveys.json
   def index
-    @surveys = Survey.all
+    @surveys = current_user.surveys.all
   end
 
   # GET /surveys/1
@@ -19,16 +19,30 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1/edit
   def edit
+    unless auth_privilege
+      redirect_to surveys_url, notice: '권한이 없습니다.'
+      return
+    end
+
+    unless @survey.editable?
+      redirect_to surveys_url, notice: '진행 중인 설문은 수정할 수 없습니다.'
+      return
+    end
+
+    @question = Question.new
+    @questions = @survey.questions
   end
 
   # POST /surveys
   # POST /surveys.json
   def create
     @survey = Survey.new(survey_params)
+    @survey.user = current_user
+    @survey.editable = true
 
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
+        format.html { redirect_to edit_survey_path(@survey), notice: 'Survey was successfully created.' }
         format.json { render action: 'show', status: :created, location: @survey }
       else
         format.html { render action: 'new' }
@@ -54,6 +68,11 @@ class SurveysController < ApplicationController
   # DELETE /surveys/1
   # DELETE /surveys/1.json
   def destroy
+    unless auth_privilege
+      redirect_to surveys_url, notice: '권한이 없습니다.'
+      return
+    end
+
     @survey.destroy
     respond_to do |format|
       format.html { redirect_to surveys_url }
@@ -70,5 +89,9 @@ class SurveysController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_params
       params.require(:survey).permit(:title, :description)
+    end
+
+    def auth_privilege
+      @survey.user == current_user
     end
 end

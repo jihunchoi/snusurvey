@@ -1,12 +1,13 @@
 Snusurvey::Application.routes.draw do
   resources :surveys
+  resources :questions, only: [:create, :destroy, :update]
 
   devise_for :users
 
   authenticated :user do
     root 'surveys#index', as: :authenticated_root
   end
-  root 'static_pages#main', as: :unauthenticated_root
+  root 'static_pages#home', as: :unauthenticated_root
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

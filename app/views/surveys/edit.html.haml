@@ -1,6 +1,85 @@
-%h1 Editing survey
+%h1 설문조사 수정
 
 = render 'form'
+
+%hr
+
+%ol
+  - @questions.each do |question|
+    %li
+      %strong= question.label
+      .entries
+        - if question.type == 0
+          / Radio
+          - question.choices.each do |choice|
+            %input{type: "radio", disabled: true}
+            = choice.label
+        - elsif question.type == 1
+          / Checkbox
+          - question.choices.each do |choice|
+            %input{type: "checkbox", disabled: true}
+            = choice.label
+        - else
+          / Subjective
+          %input{type: "text", disabled: true}
+          
+%hr
+
+%h2 문항 추가하기
+
+%p
+  문항 유형을 선택하세요: 
+  %select#questionType
+    %option.radio 단일 선택 문항
+    %option.checkbox 다중 선택 문항
+    %option.subjective 주관식 문항
+
+#radio.question
+  %h4 단일 선택 문항
+  = form_for @question do |f|
+    = hidden_field_tag "survey_id", @survey.id
+    = f.hidden_field :type, value: 0
+    .field
+      = f.label :label
+      = f.text_field :label
+    .field
+      = label_tag "choices", "선택지"
+      = text_field_tag "radioButtonChoiceLabel", nil, id: "radioButtonChoiceLabel"
+      = link_to "선택지 추가", "#", id: "addRadioButton"
+      #radioButtons
+    .actions
+      = f.submit
+
+#checkbox.question
+  %h4 다중 선택 문항
+  = form_for @question do |f|
+    = hidden_field_tag "survey_id", @survey.id
+    = f.hidden_field :type, value: 1
+    .field
+      = f.label :label
+      = f.text_field :label
+    .field.checkBoxes
+      = label_tag "choices", "선택지"
+      = text_field_tag "checkBoxChoiceLabel", nil, id: "checkBoxChoiceLabel"
+      = link_to "선택지 추가", "#", id: "addCheckBox"
+      #checkBoxes
+    .actions
+      = f.submit
+
+#subjective.question
+  %h4 주관식 문항
+  = form_for @question do |f|
+    = hidden_field_tag "survey_id", @survey.id
+    = f.hidden_field :type, value: 2
+    .field
+      = f.label :label
+      = f.text_field :label
+    .field.radioButtons
+      = f.label :content
+      = f.text_field :content
+    .actions
+      = f.submit
+
 
 = link_to 'Show', @survey
 \|

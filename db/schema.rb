@@ -11,35 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131011125159) do
+ActiveRecord::Schema.define(version: 20131012123657) do
 
   create_table "choices", force: true do |t|
     t.string   "label"
     t.boolean  "checked"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "question_checkboxes", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "question_radios", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "question_scores", force: true do |t|
-    t.integer  "score"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "question_subjectives", force: true do |t|
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "question_id"
   end
 
   create_table "questions", force: true do |t|
@@ -47,6 +26,8 @@ ActiveRecord::Schema.define(version: 20131011125159) do
     t.integer  "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "survey_id"
+    t.string   "content"
   end
 
   create_table "surveys", force: true do |t|
@@ -54,6 +35,8 @@ ActiveRecord::Schema.define(version: 20131011125159) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.boolean  "editable"
   end
 
   create_table "users", force: true do |t|
