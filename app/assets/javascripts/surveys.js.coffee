@@ -31,7 +31,7 @@ ready = ->
     $("#checkBoxes").append(markup)
     return false
 
-  $("#questions").sortable
+  $("#edit-questions").sortable
     placeholder: "sortable-placeholder"
     start: (event, ui) ->
       $(ui.item).parent().find('.sortable-placeholder').height($(ui.item).height())
