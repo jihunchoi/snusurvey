@@ -1,0 +1,25 @@
+%h1= @survey.title
+%p= @survey.description
+
+%hr
+
+%ol
+  - @questions.each do |question|
+    %li{data: {question_id: question.id}}
+      %strong= question.label
+      .entries
+        - if question.type == 0
+          / Radio
+          - question.choices.each do |choice|
+            %input{type: "radio"}
+            = choice.label
+        - elsif question.type == 1
+          / Checkbox
+          - question.choices.each do |choice|
+            %input{type: "checkbox"}
+            = choice.label
+        - else
+          / Subjective
+          %input{type: "text"}
+          
+%hr

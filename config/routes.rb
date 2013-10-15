@@ -1,6 +1,8 @@
 Snusurvey::Application.routes.draw do
+  get "reports/new"
   resources :surveys
   resources :questions, only: [:create, :destroy, :update]
+  get ':survey_id' => 'reports#new'
 
   devise_for :users
 

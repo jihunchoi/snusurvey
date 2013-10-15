@@ -55,7 +55,7 @@ ready = ->
           console.log "error"
 
 
-  $("#questions").disableSelection()
+  $("#edit-questions").disableSelection()
 
 $(document).ready ready
 $(document).on "page:load", ready
