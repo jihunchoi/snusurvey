@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
     end
 
     @question = @survey.questions.new(question_params)
+    @question.order_weight = @survey.questions.maximum('order_weight').to_f + 1
     @question.save
     if @question.type == 0
       # radio
@@ -29,6 +30,24 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    prev_question = Question.find(params[:prev_id]) if params[:prev_id].present?
+    next_question = Question.find(params[:next_id]) if params[:next_id].present?
+
+    prev_weight = prev_question.order_weight if prev_question
+    next_weight = next_question.order_weight if next_question
+
+    unless prev_weight
+      prev_weight = next_weight.to_f - 1;
+    end
+    unless next_weight
+      next_weight = prev_weight.to_f + 1;
+    end
+
+    new_weight = (prev_weight + next_weight) / 2
+    question = Question.find(params[:id])
+    question.update_attribute(:order_weight, new_weight)
+
+    render nothing: true
   end
 
   private

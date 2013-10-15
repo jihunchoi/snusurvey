@@ -4,26 +4,28 @@
 
 %hr
 
-%ol
-  - @questions.each do |question|
-    %li
-      %strong= question.label
-      .entries
-        - if question.type == 0
-          / Radio
-          - question.choices.each do |choice|
-            %input{type: "radio", disabled: true}
-            = choice.label
-        - elsif question.type == 1
-          / Checkbox
-          - question.choices.each do |choice|
-            %input{type: "checkbox", disabled: true}
-            = choice.label
-        - else
-          / Subjective
-          %input{type: "text", disabled: true}
-          
-%hr
+- if @questions.present?
+  %p 문항을 드래그해 위치를 조정할 수 있습니다.
+  %ol#questions
+    - @questions.each do |question|
+      %li{data: {question_id: question.id}}
+        %strong= question.label
+        .entries
+          - if question.type == 0
+            / Radio
+            - question.choices.each do |choice|
+              %input{type: "radio", disabled: true}
+              = choice.label
+          - elsif question.type == 1
+            / Checkbox
+            - question.choices.each do |choice|
+              %input{type: "checkbox", disabled: true}
+              = choice.label
+          - else
+            / Subjective
+            %input{type: "text", disabled: true}
+            
+  %hr
 
 %h2 문항 추가하기
 

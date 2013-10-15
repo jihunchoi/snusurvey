@@ -30,7 +30,7 @@ class SurveysController < ApplicationController
     end
 
     @question = Question.new
-    @questions = @survey.questions
+    @questions = @survey.questions.order('order_weight ASC')
   end
 
   # POST /surveys

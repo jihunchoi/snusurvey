@@ -31,5 +31,31 @@ ready = ->
     $("#checkBoxes").append(markup)
     return false
 
+  $("#questions").sortable
+    placeholder: "sortable-placeholder"
+    start: (event, ui) ->
+      $(ui.item).parent().find('.sortable-placeholder').height($(ui.item).height())
+    update: (event, ui) ->
+      question = $(ui.item)
+      prevQuestion = question.prev()
+      nextQuestion = question.next()
+      data = {
+        prev_id: prevQuestion.data('question-id')
+        next_id: nextQuestion.data('question-id')
+        _method: 'patch'
+      }
+      url = '/questions/' + question.data('question-id')
+      $.ajax
+        method: 'post'
+        url: url
+        data: data
+        success: ->
+          console.log "success"
+        error: ->
+          console.log "error"
+
+
+  $("#questions").disableSelection()
+
 $(document).ready ready
 $(document).on "page:load", ready
