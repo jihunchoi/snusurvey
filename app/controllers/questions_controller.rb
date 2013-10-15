@@ -1,12 +1,12 @@
 class QuestionsController < ApplicationController
   def create
-    @survey = Survey.find(params[:survey_id])
+    @survey = Survey.find(params[:question][:survey_id])
     unless @survey.user == current_user
       redirect_to root_url
       return
     end
 
-    @question = @survey.questions.new(question_params)
+    @question = Question.new(question_params)
     @question.order_weight = @survey.questions.maximum('order_weight').to_f + 1
     @question.save
     if @question.type == 0
