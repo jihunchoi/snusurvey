@@ -2,6 +2,7 @@ Snusurvey::Application.routes.draw do
   resources :reports, only: :create
   resources :surveys
   resources :questions, only: [:create, :destroy, :update]
+  get 'auth/new' => 'users#auth_new'
   get 'auth' => 'users#auth'
   get ':survey_id' => 'reports#new'
 

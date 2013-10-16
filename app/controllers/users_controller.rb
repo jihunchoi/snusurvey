@@ -3,6 +3,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :auth_needed?
 
+  def auth_new
+  end
+
   def auth
     memberkey_digest = params[:memberkey_digest]
     college = params[:college]
@@ -12,12 +15,12 @@ class UsersController < ApplicationController
     auth_token_to_validate = Digest::SHA1.hexdigest(college + department + memberkey_digest + student_type + ENV['MYSNU_AUTH_SALT'])
 
     unless auth_token == auth_token_to_validate
-      render text: "인증 토큰 오류: 비정상적인 접근이 의심됩니다."
+      redirect_to auth_new_path, alert: "인증 오류: 비정상적인 접근이 의심됩니다."
       return
     end
 
     if User.find_by(memberkey_digest: memberkey_digest)
-      render text: "이미 인증된 마이스누 계정입니다."
+      redirect_to auth_new_path, alert: "인증 오류: 이미 인증된 마이스누 계정입니다."
       return
     end
 
@@ -31,13 +34,13 @@ class UsersController < ApplicationController
         confirmed_at: Time.now
       }
     )
-    render text: "인증되었습니다."
+    redirect_to surveys_path, notice: "인증되었습니다."
   end
 
   private
     def auth_needed?
-      unless current_user.confirmed?
-        render text: "이미 인증되었습니다."
+      if current_user.confirmed?
+        redirect_to surveys_path, notice: "이미 인증되었습니다."
         return
       end
     end

@@ -6,6 +6,10 @@ class SurveysController < ApplicationController
   # GET /surveys
   # GET /surveys.json
   def index
+    unless current_user.confirmed?
+      redirect_to auth_new_path
+      return
+    end
     @surveys = current_user.surveys.all
   end
 
