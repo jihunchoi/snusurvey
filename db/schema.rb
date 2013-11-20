@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015073020) do
+ActiveRecord::Schema.define(version: 20131120085450) do
 
   create_table "answers", force: true do |t|
     t.integer  "type"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20131015073020) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_id"
+    t.integer  "next_question_id"
   end
 
   create_table "questions", force: true do |t|

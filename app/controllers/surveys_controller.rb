@@ -40,19 +40,26 @@ class SurveysController < ApplicationController
   end
 
   # POST /surveys
-  # POST /surveys.json
   def create
     @survey = Survey.new(survey_params)
     @survey.user = current_user
-    @survey.editable = true
 
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to edit_survey_path(@survey), notice: 'Survey was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @survey }
+        questions_params = params[:questions]
+        questions_params.each do |question_order, question_data|
+          question = @survey.questions.create(type: 0, label: question_data[:label], order_weight: question_order.to_i)
+          choices_params = question_data[:choices]
+          choices_params.each do |choice_order, choice_data|
+            unless choice_data[:next_question_id]
+              choice_data[:next_question_id] =  question_order.to_i + 1
+            end
+            choice = question.choices.create(label: choice_data[:label], next_question_id: choice_data[:next_question_id])
+          end
+        end
+        format.html { redirect_to surveys_url, notice: 'Survey was successfully created.' }
       else
         format.html { render action: 'new' }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
       end
     end
   end

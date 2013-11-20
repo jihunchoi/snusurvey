@@ -5,7 +5,8 @@
 %hr
 
 - if @questions.present?
-  %p 문항을 드래그해 위치를 조정할 수 있습니다.
+  %p 문항을 드래그해 순서를 조정할 수 있습니다.
+  %p (단일 선택 문항) 선택지를 클릭해 선택지에 종속되는 문항을 추가할 수 있습니다.
   %ol#edit-questions
     - @questions.each do |question|
       %li{data: {question_id: question.id}}
@@ -14,13 +15,17 @@
           - if question.type == 0
             / Radio
             - question.choices.each do |choice|
-              %input{type: "radio", disabled: true}
-              = choice.label
+              %label.radio-label{data: {choice_id: choice.id}}
+                %input{type: "radio", disabled: true}
+                - if choice.question_next
+                - else
+                  = choice.label
           - elsif question.type == 1
             / Checkbox
             - question.choices.each do |choice|
-              %input{type: "checkbox", disabled: true}
-              = choice.label
+              %label.checkbox-label
+                %input{type: "checkbox", disabled: true}
+                = choice.label
           - else
             / Subjective
             %input{type: "text", disabled: true}
@@ -41,6 +46,7 @@
   = form_for @question do |f|
     = f.hidden_field :survey_id
     = f.hidden_field :type, value: 0
+    = f.hidden_field :parent_choice_id, value: nil, class: "parent_choice_id"
     .field
       = f.label :label
       = f.text_field :label
@@ -57,6 +63,7 @@
   = form_for @question do |f|
     = f.hidden_field :survey_id
     = f.hidden_field :type, value: 1
+    = f.hidden_field :parent_choice_id, value: nil, class: "parent_choice_id"
     .field
       = f.label :label
       = f.text_field :label
@@ -73,6 +80,7 @@
   = form_for @question do |f|
     = f.hidden_field :survey_id
     = f.hidden_field :type, value: 2
+    = f.hidden_field :parent_choice_id, value: nil, class: "parent_choice_id"
     .field
       = f.label :label
       = f.text_field :label
