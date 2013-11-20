@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     department = params[:department]
     student_type = params[:student_type]
     auth_token = params[:auth_token]
-    auth_token_to_validate = Digest::SHA1.hexdigest(college + department + memberkey_digest + student_type + ENV['MYSNU_AUTH_SALT'])
+    auth_token_to_validate = Digest::SHA256.hexdigest(college + department + memberkey_digest + student_type + ENV['MYSNU_AUTH_SALT'])
 
     unless auth_token == auth_token_to_validate
       redirect_to auth_new_path, alert: "인증 오류: 비정상적인 접근이 의심됩니다."
