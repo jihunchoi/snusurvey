@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
       redirect_to '/'
     end
 
-    @questions = @survey.questions.order('order_weight ASC')
+    @questions = @survey.questions.order('question_number ASC')
     @report = Report.new
   end
 

@@ -1,1 +1,6 @@
-json.extract! @survey, :title, :description, :created_at, :updated_at
+json.array! @questions do |question|
+  json.extract! question, :id, :label, :question_number
+  json.choices question.choices do |choice|
+    json.extract! choice, :id, :label, :next_question_id
+  end
+end

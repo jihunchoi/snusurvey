@@ -16,6 +16,7 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    @questions = @survey.questions.order('question_number ASC')
   end
 
   # GET /surveys/new
@@ -48,10 +49,10 @@ class SurveysController < ApplicationController
       if @survey.save
         questions_params = params[:questions]
         questions_params.each do |question_order, question_data|
-          question = @survey.questions.create(type: 0, label: question_data[:label], order_weight: question_order.to_i)
+          question = @survey.questions.create(type: 0, label: question_data[:label], question_number: question_order.to_i)
           choices_params = question_data[:choices]
           choices_params.each do |choice_order, choice_data|
-            unless choice_data[:next_question_id]
+            unless choice_data[:next_question_id].strip.present?
               choice_data[:next_question_id] =  question_order.to_i + 1
             end
             choice = question.choices.create(label: choice_data[:label], next_question_id: choice_data[:next_question_id])
