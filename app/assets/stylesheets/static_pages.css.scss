@@ -3,11 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 html, body {
-  height: 100%;
+  word-break: break-all;
+  width: 100%;
 }
 .jumbotron {
-  margin: 0;
+  float: right;
+  text-align: right;
   & > .container {
-    padding: 30px;
+    text-align: left;
   }
 }

@@ -4,7 +4,10 @@ Snusurvey::Application.routes.draw do
   resources :questions, only: [:create, :destroy, :update]
   get 'auth/new' => 'users#auth_new'
   get 'auth' => 'users#auth'
-  get ':survey_id' => 'reports#new'
+  get ':survey_id' => 'reports#new', constraints: { survey_id: /\d+/ }
+  devise_scope :user do
+    get 'signout' => 'devise/sessions#destroy'
+  end
 
   devise_for :users
 

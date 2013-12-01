@@ -72,32 +72,64 @@ ready = ->
     count = $('.questions').children().length
     markup = '<div class="question" data-question-id="'+(count+1)+'">'
     markup += '<div class="question-label">'
-    markup += (count+1) + '. <input type="text" name="questions['+(count+1)+'][label]">'
+    markup += '<div class="row form-group">'
+    markup += '<div class="col-sm-1 text-right">'
+    markup += (count+1) + '.'
     markup += '</div>'
-    markup += '<a role="button" class="btn btn-default addChoice">보기 추가하기</a>'
-    markup += '<a role="button" class="btn btn-default deleteChoice">보기 삭제하기</a>'
-    markup += '<a role="button" class="btn btn-default deleteQuestion">질문 삭제하기</a>'
+    markup += '<div class="col-sm-7">'
+    markup += '<input class="form-control" type="text" name="questions['+(count+1)+'][label]">'
+    markup += '</div>'
+    markup += '<div class="col-sm-4 text-right">'
+    markup += '<a class="btn btn-default addChoice" role="button">보기 추가하기</a> '
+    markup += '<a class="btn btn-default deleteChoice" role="button">보기 삭제하기</a> '
+    markup += '<a class="btn btn-default deleteQuestion" role="button">질문 삭제하기</a> '
+    markup += '</div>'
+    markup += '</div>'
+    markup += '</div>'
     markup += '<div class="choices">'
     markup += '<div class="choice">'
-    markup += '1. <input type="text" name="questions['+(count+1)+'][choices][1][label]">'
-    markup += '<input type="text" name="questions['+(count+1)+'][choices][1][next_question_id]">'
+    markup += '<div class="row form-group">'
+    markup += '<div class="col-sm-offset-1 col-sm-8">'
+    markup += '<div class="col-sm-1 text-right">'
+    markup += '1.'
+    markup += '</div>'
+    markup += '<div class="col-sm-9">'
+    markup += '<input class="form-control" type="text" name="questions['+(count+1)+'][choices][1][label]">'
+    markup += '</div>'
+    markup += '<div class="col-sm-2">'
+    markup += '<input class="form-control" type="text" name="questions['+(count+1)+'][choices][1][next_question_id]" placeholder="다음" title="선택지를 선택했을 때 이동할 문항 번호입니다">'
+    markup += '</div>'
+    markup += '</div>'
+    markup += '</div>'
+    markup += '</div>'
     markup += '</div>'
     markup += '</div>'
     $('.questions').append(markup)
 
 $(document).on "click", ".addChoice", ->
-  question = $(this).parent()
+  question = $(this).parent().parent().parent().parent()
   question_id = question.data('question-id')
   choices = question.children('.choices')
   count = choices.children().length
   markup = '<div class="choice">'
-  markup += (count+1) + '. <input type="text" name="questions['+question_id+'][choices]['+(count+1)+'][label]">'
-  markup += '<input type="text" name="questions['+question_id+'][choices]['+(count+1)+'][next_question_id]">'
+  markup += '<div class="row form-group">'
+  markup += '<div class="col-sm-offset-1 col-sm-8">'
+  markup += '<div class="col-sm-1 text-right">'
+  markup += (count+1) + '.'
+  markup += '</div>'
+  markup += '<div class="col-sm-9">'
+  markup += '<input class="form-control" type="text" name="questions['+question_id+'][choices]['+(count+1)+'][label]">'
+  markup += '</div>'
+  markup += '<div class="col-sm-2">'
+  markup += '<input class="form-control" type="text" name="questions['+question_id+'][choices]['+(count+1)+'][next_question_id]" placeholder="다음" title="선택지를 선택했을 때 이동할 문항 번호입니다">'
+  markup += '</div>'
+  markup += '</div>'
+  markup += '</div>'
   markup += '</div>'
   choices.append(markup)
 
 $(document).on "click", ".deleteChoice", ->
-  question = $(this).parent()
+  question = $(this).parent().parent().parent().parent()
   choices = question.children('.choices')
   count = choices.children().length
   if count is 1
@@ -107,7 +139,7 @@ $(document).on "click", ".deleteChoice", ->
     choice.remove()
 
 $(document).on "click", ".deleteQuestion", ->
-  question = $(this).parent()
+  question = $(this).parent().parent().parent().parent()
   questions = question.parent()
   count = questions.children().length
   if count is 1

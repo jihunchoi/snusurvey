@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   #               9 (exchange student)
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :rememberable, :trackable, :validatable
   has_many :surveys
   has_many :reports
 

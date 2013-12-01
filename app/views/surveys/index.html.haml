@@ -1,21 +1,22 @@
-%h1 Listing surveys
-
-%table
-  %tr
-    %th Title
-    %th Description
-    %th
-    %th
-    %th
-
-  - @surveys.each do |survey|
+.col-md-offset-1.col-md-10
+  %h1 내 설문조사
+  %table.table.table-striped
     %tr
-      %td= survey.title
-      %td= survey.description
-      %td= link_to 'Show', survey
-      %td= link_to 'Edit', edit_survey_path(survey) if survey.editable?
-      %td= link_to 'Destroy', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th #
+      %th 제목
+      %th.hidden-xs 만든 날짜
+      %th.hidden-xs 끝나는 날짜
+      %th
 
-%br
+    - num = 0
+    - @surveys.each do |survey|
+      %tr
+        %td= num += 1
+        %td= survey.title
+        %td.hidden-xs= survey.created_at.strftime "%Y/%m/%d"
+        %td.hidden-xs= "fake/da/te"
+        %td= link_to '삭제', survey, :method => :delete, :data => { :confirm => '삭제하시겠습니까?' }
 
-= link_to 'New Survey', new_survey_path
+  %br
+
+  = link_to '설문조사 만들기', new_survey_path, class: 'btn btn-success pull-right'

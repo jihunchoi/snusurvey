@@ -13,10 +13,11 @@
  *= require_tree .
  */
 
- .sortable-placeholder {
-  display: block;
-  // height: 40px;
-  border: 1px dotted;
- }
-
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import "twitter/bootstrap";
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+body {
+  font-family: 'Nanum Gothic';
+}

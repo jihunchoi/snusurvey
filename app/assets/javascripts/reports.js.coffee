@@ -14,7 +14,7 @@ $.getJSON '/surveys' + location.pathname, (data) ->
   $.each questions, (index, question) ->
     markup = '<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">' + question["label"] + '</h3></div><div class="panel-body"><ol>'
     $.each question["choices"], (answerIndex, answer) ->
-      markup += '<li><label><input class="radio" type="radio" name="question_'+index+'" data-question-number="'+index+'" value="'+answerIndex+'">'+answer["label"]+'</label></li>'
+      markup += '<li><label class="radio"><input class="radio" type="radio" name="question_'+index+'" data-question-number="'+index+'" value="'+answerIndex+'">'+answer["label"]+'</label></li>'
     markup += '</ol></div><div class="panel-footer"><a href="#" class="prev_question_link">뒤로</div></div>'
     $("#container").append(markup)
 
@@ -58,6 +58,8 @@ selectAnswer = (questionNumber, answerIndex) ->
   questionData = questions[questionNumber]
   questionData["selectedIndex"] = answerIndex
   nextQuestionNumber = questionData.choices[answerIndex].next_question_id - 1
+  console.log questionNumber
+  console.log nextQuestionNumber
   switchQuestion(questionNumber, nextQuestionNumber)
 
 $(document).on "click", "input[type=radio]", ->

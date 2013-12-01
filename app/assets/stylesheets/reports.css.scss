@@ -6,9 +6,7 @@
   display: none;
   width: 640px;
 }
-label {
-  margin: 10px;
-}
-input {
-  margin-right: 5px !important
+label.radio {
+  display: inline-block;
+  margin-right: -4px;
 }

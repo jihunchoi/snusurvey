@@ -11,12 +11,10 @@
       .alert.alert-info.alert-dismissable
         %button{type: "button", class: "close", data: {dismiss: "alert"}, aria: {hidden: "true"}}
           &times;
-        = notice
+        = h(notice).gsub("\n", "<br>").html_safe
     - if alert
       .alert.alert-danger.alert-dismissable
         %button{type: "button", class: "close", data: {dismiss: "alert"}, aria: {hidden: "true"}}
           &times;
         = alert
-    .row
-      .col-md-12
-        = yield
+    = yield

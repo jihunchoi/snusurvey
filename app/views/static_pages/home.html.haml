@@ -1,18 +1,27 @@
 .jumbotron.intro
   .container
-    %h1 SNU SURVEY
+    %h1 SNU Survey
     %p 서울대생을 위한 똑똑한 설문조사 솔루션, SNU SURVEY
     %p
       = link_to "지금 가입하기", new_user_registration_path, class: "btn btn-primary btn-lg"
       = link_to "이미 가입했다면, 로그인하기", new_user_session_path, class: "btn btn-small"
 .jumbotron.second
   .container
-    %h1 Convenient for investigators
-    %p SNU SURVEY는 설문조사 진행자들에게 편리합니다.
-.jumbotron.third
-  .container
-    %h1 Convenient for participants
-    %p SNU SURVEY는 설문조사 참여자들에게도 편리합니다.
+    %h1 참여자에게 편리합니다
+    %h2 SNU Survey는 설문조사 참여자들에게 편리합니다.
+    %ul.list-unstyled
+      %li
+        단과대학, 학부, 학년 등의 정보를 매번 입력하기 지쳤나요?
+        %ul
+          %li SNU Survey에서는 키보드를 이용해 손쉽게 설문조사에 참여할 수 있습니다.
+      %li
+        노트북 터치패드로 설문조사 항목을 클릭하기가 힘들진 않았나요?
+        %ul
+          %li SNU Survey에서는 키보드를 이용해 손쉽게 설문조사에 참여할 수 있습니다.
+      %li
+        안 그래도 귀찮은데, 설문조사 문항까지 이해가 잘 가지 않아 짜증났나요?
+        %ul
+          %li SNU Survey에서는 문항에서 중요한 부분을 강조해 보여줍니다.
 .jumbotron.outro
   .container
     %h3 지금 바로 시작하세요!

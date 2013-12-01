@@ -58,7 +58,7 @@ class SurveysController < ApplicationController
             choice = question.choices.create(label: choice_data[:label], next_question_id: choice_data[:next_question_id])
           end
         end
-        format.html { redirect_to surveys_url, notice: 'Survey was successfully created.' }
+        format.html { redirect_to surveys_url, notice: "설문조사가 성공적으로 만들어졌습니다.\n설문조사 주소: http://snusurvey.sontm.net/#{@survey.id}" }
       else
         format.html { render action: 'new' }
       end
